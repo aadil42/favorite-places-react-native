@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     },
     lable: {
         marginBottom: 8,
-        color: Colors.primary200,
+        color: Colors.primary500,
         fontSize: 18
     },
     input: {
