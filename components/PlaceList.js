@@ -1,8 +1,12 @@
-import { Text } from "react-native"; 
+import PlaceItem from "./PlaceItem";
 
 const PlaceList = () => {
     return (
-        <Text>This is PlaceList component</Text>
+        <>
+            <PlaceItem />
+            <PlaceItem />
+            <PlaceItem />
+        </>
     );
 }
 
