@@ -5,6 +5,11 @@ import {View, Text, TextInput, StyleSheet} from "react-native";
 // import constants
 import { Colors } from "../constants/Colors";
 
+
+// import components
+import ImagePicker from "./ImagePicker";
+
+
 const PlaceForm = () => {
 
     const [title, setTitle] = useState("");
@@ -25,6 +30,7 @@ const PlaceForm = () => {
                     onChangeText={titleChangeHandler}
                     style={styles.input}
                 />
+                <ImagePicker />
             </View>
         </View>
     );
