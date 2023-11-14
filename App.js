@@ -1,6 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
+// import constans
+import { Colors } from "./constants/Colors";
+
 // import components
 import IconBtn from "./components/IconBtn";
 
@@ -18,7 +21,17 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-        <Stack.Navigator >
+        <Stack.Navigator 
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: Colors.primary500
+          },
+          headerTintColor: Colors.gray700,
+          contentStyle: {
+            backgroundColor: Colors.gray700
+          }
+        }}
+        >
           <Stack.Screen
             options={({navigation}) => ({
               title:"All Places",
@@ -42,7 +55,7 @@ export default function App() {
            options={{
             title: "Add Favorite Place"
            }}
-           
+
            name="AddPlace" component={AddPlace}  />
         </Stack.Navigator>
     </NavigationContainer>
