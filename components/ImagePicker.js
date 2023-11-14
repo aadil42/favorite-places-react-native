@@ -1,18 +1,28 @@
+import { useState } from "react";
+
 import { View, Image, StyleSheet } from "react-native";
 
 import OutlineBtn from "./OutlineBtn";
 
+
+// import imagetaking functions
+import { launchCameraAsync, useCameraPermissions } from "expo-image-picker";
+
 const ImagePicker = () => {
 
-    const imagePickerHandler = () => {
-        console.log('image picking...');
+    const [imageUri, setImageUri] = useState(null);
+
+    const imagePickerHandler = async () => {
+        const image = await launchCameraAsync();
+        const {uri} = image.assets[0];
+        setImageUri(uri);
     }
 
     return (
         <View>
             <View>
                 {/*  this is where the preview will go */}
-                <Image style={styles.image}/>
+                <Image source={{uri: imageUri}} style={styles.image}/>
             </View>
             <View>
                 <OutlineBtn 

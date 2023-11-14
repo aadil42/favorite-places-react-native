@@ -5,8 +5,8 @@ import { Colors } from "../constants/Colors";
 const OutlineBtn = ({pressHandler, icon, color, size, title}) => {
 
     return (
-        <Pressable style={styles.btnContainer}>
-            <Ionicons onPress={pressHandler} name={icon} color={color} size={size} />
+        <Pressable onPress={pressHandler}  style={styles.btnContainer}>
+            <Ionicons name={icon} color={color} size={size} />
             <Text style={styles.text}>{title}</Text>
         </Pressable>
     );
