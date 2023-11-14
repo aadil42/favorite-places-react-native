@@ -1,4 +1,4 @@
-import { PlaceList } from "../components/PlaceList";
+import PlaceList from "../components/PlacesList";
 
 const AllPlaces = () => {
     return (
