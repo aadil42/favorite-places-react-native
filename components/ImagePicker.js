@@ -13,7 +13,12 @@ const ImagePicker = () => {
     const [imageUri, setImageUri] = useState(null);
 
     const imagePickerHandler = async () => {
-        const image = await launchCameraAsync();
+        const image = await launchCameraAsync({
+            allowsEditing: true,
+            aspect: [16, 9],
+            quality: .5
+        });
+        
         const {uri} = image.assets[0];
         setImageUri(uri);
     }
