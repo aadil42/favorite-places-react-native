@@ -3,10 +3,10 @@ import MapView, { Marker } from "react-native-maps";
 
 const Map = () => {
     const region = {
-        latitude: 37.78,
-        longitude: -122.43,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+        latitude: 23.022505,
+        longitude: 72.571365,
+        latitudeDelta: 0.5123,
+        longitudeDelta: 0.9185,
     };
 
     return <MapView style={styles.map} initialRegion={region}/>
