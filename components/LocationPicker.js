@@ -1,4 +1,6 @@
-import { Text, View, StyleSheet, Alert} from "react-native";
+import { useState } from "react";
+import { Text, View, StyleSheet, Alert, Pressable} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { getCurrentPositionAsync, 
          useForegroundPermissions,
@@ -7,9 +9,16 @@ import { getCurrentPositionAsync,
 // import components
 import OutlineBtn from "./OutlineBtn";
 
+
+// import helper functions
+import { getMapPreviewFunction } from "../utils/location";
+
 const LocationPicker = () => {
     
     const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
+    const [location, setLocation] = useState({});
+    const navigation = useNavigation();
+
     
     const ifLocationAllowed = async () => {
         if(locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
@@ -18,6 +27,7 @@ const LocationPicker = () => {
         }
         if(locationPermissionInformation.status === PermissionStatus.DENIED) {
             Alert.alert("Oops can't access location", "You must grand permission");
+            locationPermissionInformation.status = PermissionStatus.UNDETERMINED;
             return false;
         }
         return true;
@@ -28,11 +38,12 @@ const LocationPicker = () => {
 
             const isAllowed = await ifLocationAllowed();
             if(!isAllowed) return;
-            // console.log('hehe');
-
-            console.log("allowed");
             const response = await getCurrentPositionAsync();
-            console.log(response);
+
+            // set location lat and long
+            const {longitude, latitude} = response.coords;
+            getMapPreviewFunction(longitude, latitude);
+            // get the map
         } catch {
             console.log('oops... request faild');
         }
@@ -42,11 +53,15 @@ const LocationPicker = () => {
         console.log('picking location');
     }
 
+    const mapClickHandler  = () => {
+        navigation.navigate("Map");
+    }
+
     return (
         <View style={styles.container}>
-            <View style={styles.mapPre}>
+            <Pressable onPress={mapClickHandler} style={styles.mapPre}>
                 <Text style={styles.placeHolder}>There will be Map!</Text>
-            </View>
+            </Pressable>
             <View style={styles.btnContainer}>
                 <OutlineBtn pressHandler={getLocationHandler} title="Get Location" color="white" size={24} icon="location" />
                 <OutlineBtn pressHandler={pickLocationHandler} title="Pick Location" color="white" size={24} icon="map" />
