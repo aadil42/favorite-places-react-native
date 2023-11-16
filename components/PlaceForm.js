@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import {View, Text, TextInput, StyleSheet} from "react-native";
+import { View, Text, TextInput, StyleSheet, ScrollView } from "react-native";
 
 // import constants
 import { Colors } from "../constants/Colors";
@@ -8,6 +8,7 @@ import { Colors } from "../constants/Colors";
 
 // import components
 import ImagePicker from "./ImagePicker";
+import LocationPicker from "./LocationPicker";
 
 
 const PlaceForm = () => {
@@ -19,9 +20,8 @@ const PlaceForm = () => {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.formContainer}>
-                <Text style={styles.lable}> 
+        <ScrollView style={styles.container}>
+            <Text style={styles.lable}> 
                     Title
                 </Text>
                 <TextInput 
@@ -31,21 +31,16 @@ const PlaceForm = () => {
                     style={styles.input}
                 />
                 <ImagePicker />
-            </View>
-        </View>
+                <LocationPicker />
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        // borderWidth: 2,
-        alignItems: "center",
         marginTop: 25,
-        flex: 1
-    },
-    formContainer: {
-        // borderWidth: 2,
-        width: "80%"
+        flex: 1,
+        paddingHorizontal: 25
     },
     lable: {
         marginBottom: 8,
