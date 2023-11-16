@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, View, StyleSheet, Alert, Pressable} from "react-native";
+import { Text, View, StyleSheet, Alert, Pressable, Image} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { getCurrentPositionAsync, 
@@ -18,7 +18,7 @@ const LocationPicker = () => {
     const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
     const [location, setLocation] = useState({});
     const navigation = useNavigation();
-
+    const [image , setImage] = useState(false);
     
     const ifLocationAllowed = async () => {
         if(locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
@@ -42,7 +42,8 @@ const LocationPicker = () => {
 
             // set location lat and long
             const {longitude, latitude} = response.coords;
-            getMapPreviewFunction(longitude, latitude);
+            const image = await getMapPreviewFunction(longitude, latitude);
+            setImage(image);
             // get the map
         } catch {
             console.log('oops... request faild');
@@ -50,18 +51,14 @@ const LocationPicker = () => {
     }
 
     const pickLocationHandler = () => {
-        console.log('picking location');
-    }
-
-    const mapClickHandler  = () => {
         navigation.navigate("Map");
     }
 
     return (
         <View style={styles.container}>
-            <Pressable onPress={mapClickHandler} style={styles.mapPre}>
-                <Text style={styles.placeHolder}>There will be Map!</Text>
-            </Pressable>
+            <View style={styles.mapPre}>
+                {image && <Image source={require("../assets/tajMahal.jpeg")} />}
+            </View>
             <View style={styles.btnContainer}>
                 <OutlineBtn pressHandler={getLocationHandler} title="Get Location" color="white" size={24} icon="location" />
                 <OutlineBtn pressHandler={pickLocationHandler} title="Pick Location" color="white" size={24} icon="map" />
