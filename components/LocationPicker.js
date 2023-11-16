@@ -1,12 +1,41 @@
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { Text, View, StyleSheet, Alert} from "react-native";
+
+import { getCurrentPositionAsync, 
+         useForegroundPermissions,
+         PermissionStatus } from "expo-location";
 
 // import components
 import OutlineBtn from "./OutlineBtn";
 
 const LocationPicker = () => {
+    
+    const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
+    
+    const ifLocationAllowed = async () => {
+        if(locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
+            const response = await requestPermission();
+            return response.granted;
+        }
+        if(locationPermissionInformation.status === PermissionStatus.DENIED) {
+            Alert.alert("Oops can't access location", "You must grand permission");
+            return false;
+        }
+        return true;
+    } 
 
-    const getLocationHandler = () => {
-        console.log('getting location');
+    const getLocationHandler = async () => {
+        try {
+
+            const isAllowed = await ifLocationAllowed();
+            if(!isAllowed) return;
+            // console.log('hehe');
+
+            console.log("allowed");
+            const response = await getCurrentPositionAsync();
+            console.log(response);
+        } catch {
+            console.log('oops... request faild');
+        }
     }
 
     const pickLocationHandler = () => {
