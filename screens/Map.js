@@ -1,13 +1,30 @@
-import { useState } from "react";
+import { useState, useLayoutEffect, useCallback } from "react";
 
 import { StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import IconBtn from "../components/IconBtn";
 
-const Map = () => {
+const Map = ({ navigation }) => {
 
     const [location, setLocation] = useState();
 
-    
+    const locationSaveHandler = useCallback(() => {
+        console.log("saving...");        
+    }, []);
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => {
+                return <IconBtn 
+                        icon="save" 
+                        size={24} 
+                        color="white" 
+                        pressHandler={locationSaveHandler} 
+                        />
+            }
+        });
+    }, [navigation, locationSaveHandler]);
+
     const region = {
         latitude: 23.022505,
         longitude: 72.571365,
