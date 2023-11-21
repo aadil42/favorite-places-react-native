@@ -9,7 +9,16 @@ const Map = () => {
         longitudeDelta: 0.9185,
     };
 
-    return <MapView style={styles.map} initialRegion={region}/>
+    const selectLocationHandler = (event) => {
+        const lat = event.nativeEvent.coordinate.latitude;
+        const lng = event.nativeEvent.coordinate.longitude;
+    }
+
+    return (
+        <MapView onPress={selectLocationHandler} style={styles.map} initialRegion={region}>
+            <Marker />
+        </MapView>
+    );
 }
 
 const styles = StyleSheet.create({
