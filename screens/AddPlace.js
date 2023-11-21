@@ -1,6 +1,7 @@
 import PlaceForm from "../components/PlaceForm";
 
 const AddPlace = () => {
+
     return (
         <PlaceForm />
     );

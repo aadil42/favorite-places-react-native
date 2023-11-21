@@ -9,10 +9,17 @@ const Map = ({ navigation }) => {
     const [location, setLocation] = useState();
 
     const locationSaveHandler = useCallback(() => {
-        if(!location) Alert.alert("Please Pick Location", "Can't proceed  without picking location");  
+        if(!location) {
+            Alert.alert("Please Pick Location", "Can't proceed  without picking location");
+            return;
+        }  
         
-        
-    }, []);
+        navigation.navigate("AddPlace", {
+            pickedLat: location.lat,
+            pickedLng: location. lng
+        }); 
+
+    }, [location, navigation]);
 
     useLayoutEffect(() => {
         navigation.setOptions({

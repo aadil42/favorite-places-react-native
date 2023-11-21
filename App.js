@@ -58,6 +58,7 @@ export default function App() {
            }}
 
            name="AddPlace" component={AddPlace}  />
+           
            <Stack.Screen
            options={{
             title: "Map"

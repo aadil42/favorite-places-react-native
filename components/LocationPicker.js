@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Alert, Pressable, Image} from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, 
+         useIsFocused,
+         useRoute } from "@react-navigation/native";
 
 import { getCurrentPositionAsync, 
          useForegroundPermissions,
@@ -19,7 +21,9 @@ const LocationPicker = () => {
     const [location, setLocation] = useState({});
     const navigation = useNavigation();
     const [image , setImage] = useState(false);
-    
+    const isFocused = useIsFocused();
+    const routes = useRoute();
+
     const ifLocationAllowed = async () => {
         if(locationPermissionInformation.status === PermissionStatus.UNDETERMINED) {
             const response = await requestPermission();
@@ -32,6 +36,16 @@ const LocationPicker = () => {
         }
         return true;
     } 
+
+    useEffect(() => {
+        if(routes.params) {
+            setLocation({
+                         lat: routes.params.pickedLat, 
+                         lng: routes.params.pickedLng
+                        });
+            
+        }
+    }, [isFocused, setLocation]);
 
     const getLocationHandler = async () => {
         try {
