@@ -1,6 +1,6 @@
 import { useState, useLayoutEffect, useCallback } from "react";
 
-import { StyleSheet } from "react-native";
+import { StyleSheet, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import IconBtn from "../components/IconBtn";
 
@@ -9,7 +9,9 @@ const Map = ({ navigation }) => {
     const [location, setLocation] = useState();
 
     const locationSaveHandler = useCallback(() => {
-        console.log("saving...");        
+        if(!location) Alert.alert("Please Pick Location", "Can't proceed  without picking location");  
+        
+        
     }, []);
 
     useLayoutEffect(() => {
@@ -25,6 +27,7 @@ const Map = ({ navigation }) => {
         });
     }, [navigation, locationSaveHandler]);
 
+    
     const region = {
         latitude: 23.022505,
         longitude: 72.571365,
@@ -41,13 +44,13 @@ const Map = ({ navigation }) => {
     
     return (
         <MapView onPress={selectLocationHandler} style={styles.map} initialRegion={region}>
-            <Marker 
+            {location && <Marker 
                 title="Picked Location"
                 coordinate={{
-                    latitude: location ? location["lat"] : region.latitude, 
-                    longitude: location ? location["lng"] : region.longitude
+                    latitude: location["lat"], 
+                    longitude: location["lng"]
                 }}
-            />
+            />}
         </MapView>
     );
 }
