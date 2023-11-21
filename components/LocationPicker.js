@@ -10,10 +10,10 @@ import { getCurrentPositionAsync,
 
 // import components
 import OutlineBtn from "./OutlineBtn";
-
+import Btn from "./Btn";
 
 // import helper functions
-import { getMapPreviewFunction } from "../utils/location";
+import { getMapPreviewFunction, getAddress } from "../utils/location";
 
 const LocationPicker = () => {
     
@@ -38,13 +38,19 @@ const LocationPicker = () => {
     } 
 
     useEffect(() => {
-        if(routes.params) {
-            setLocation({
-                         lat: routes.params.pickedLat, 
-                         lng: routes.params.pickedLng
-                        });
-            
+
+        const updateLocation = async () => {
+            if(routes.params) {
+                setLocation({
+                             lat: routes.params.pickedLat, 
+                             lng: routes.params.pickedLng
+                            });
+                const image = await getMapPreviewFunction(routes.params.pickedLat, routes.params.pickedLng);
+                setImage(image);
+            }
         }
+
+        updateLocation();
     }, [isFocused, setLocation]);
 
     const getLocationHandler = async () => {
@@ -58,6 +64,8 @@ const LocationPicker = () => {
             const {longitude, latitude} = response.coords;
             const image = await getMapPreviewFunction(longitude, latitude);
             setImage(image);
+            setLocation({lat: latitude, lng: longitude});
+
             // get the map
         } catch {
             console.log('oops... request faild');
@@ -68,6 +76,23 @@ const LocationPicker = () => {
         navigation.navigate("Map");
     }
 
+    const onSubmit = () => {
+        console.log('submits...');
+        const gettingAddress = async () => {
+            const response = await getAddress(location.lat,  location.lng);
+            const county = response["county"];
+            const state = response["state"];
+            const country = response["country"];
+
+            const address = `${county} ${state} ${country}`;
+
+            setLocation((preState) => {
+                return {...preState, address: address}
+            });
+        }
+        gettingAddress();
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.mapPre}>
@@ -76,6 +101,7 @@ const LocationPicker = () => {
             <View style={styles.btnContainer}>
                 <OutlineBtn pressHandler={getLocationHandler} title="Get Location" color="white" size={24} icon="location" />
                 <OutlineBtn pressHandler={pickLocationHandler} title="Pick Location" color="white" size={24} icon="map" />
+                <Btn title="Submit" pressHandler={onSubmit} /> 
             </View>
         </View>
     );

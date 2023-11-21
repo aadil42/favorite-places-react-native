@@ -23,3 +23,16 @@ export const getMapPreviewFunction = async (latitude, longitude) => {
     }
 }
 
+export const getAddress = async (latitude, longitude) => {
+    try{
+        const url = makeUrl(latitude, longitude);
+        const response = await axios.get(url);
+
+        // console.log('hehe reaching');
+        // console.log(response["data"]["results"][0], 'this is response');
+        return response["data"]["results"][0];
+    }catch {
+        console.log('something went wrong in getAddress');
+    }
+}
+
