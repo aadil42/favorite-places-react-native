@@ -85,7 +85,7 @@ const LocationPicker = () => {
             const country = response["country"];
 
             const address = `${county} ${state} ${country}`;
-
+            console.log(address);
             setLocation((preState) => {
                 return {...preState, address: address}
             });
