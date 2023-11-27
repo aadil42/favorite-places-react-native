@@ -10,9 +10,9 @@ import { launchCameraAsync,
          useCameraPermissions, 
          PermissionStatus } from "expo-image-picker";
 
-const ImagePicker = () => {
+const ImagePicker = ({imageUri, setImageUri}) => {
 
-    const [imageUri, setImageUri] = useState(null);
+    // const [imageUri, setImageUri] = useState(null);
     const [camaraPermissionInformation, requstPermission] = useCameraPermissions();
     
     const varifyPermission = async () => {
