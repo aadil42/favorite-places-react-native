@@ -8,12 +8,12 @@ const makeUrl = (lat, long) => {
 }
 
 export const getMapPreviewFunction = async (latitude, longitude) => {
-    console.log(latitude, longitude);
+    // console.log(latitude, longitude);
     try {
         const url = makeUrl(latitude, longitude);
-        console.log(url);
+        // console.log(url);
         const response = await axios.get(url);
-        console.log(response, 'success'); 
+        // console.log(response, 'success'); 
         // the above data is not enough to get the location image  
         // so for now just return true
         return true;
