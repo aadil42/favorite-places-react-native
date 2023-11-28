@@ -1,4 +1,4 @@
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import PlaceItem from "./PlaceItem";
 
 
@@ -13,17 +13,20 @@ const PlacesList = ({list}) => {
                           location={item.location} />
     }
     return (
-        // <>
-        //     <PlaceItem text="this is place item 1" />
-        //     <PlaceItem text="this is place item 2" />
-        //     <PlaceItem text="this is place item 3" />
-        // </>
-        <FlatList 
-        data={list}
-        renderItem={renderer}
-        keyExtractor={(item) =>  item.id}
-        />
+       <View style={styles.container}>
+            <FlatList 
+            data={list}
+            renderItem={renderer}
+            keyExtractor={(item) =>  item.id}
+            />
+        </View> 
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        marginTop: 15,
+    }
+});
 
 export default PlacesList;
