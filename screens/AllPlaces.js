@@ -10,13 +10,10 @@ const AllPlaces = ({route}) => {
     const result = route.params;
 
     useEffect(() => {
-
-        if(result) {
+        if(isFocused && result) {
             console.log(result.data, 'this is suppose to be the data');
             setList((preList) => [...preList, result.data]);
         }
-        // const data = routes.data;
-        // console.log(data);
     }, [isFocused]);
 
     return (
