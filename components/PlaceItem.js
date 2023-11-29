@@ -6,19 +6,22 @@ import { Colors } from "../constants/Colors";
 const PlaceItem = ({title, imageUri, address, location}) => {
     // '../assets/tajMahal.jpeg'
     return (
-        <Pressable>
-            <View style={styles.container}>
+        <View style={styles.containerContainer}>
+            <Pressable style={styles.container}>
                 <Image style={styles.image} source={{uri: imageUri}}/>
                 <View style={styles.info}>
                     <Text style={styles.text}>{title}</Text>
                     <Text>{address}</Text>
                 </View>
-            </View>
-        </Pressable>
+            </Pressable>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
+    containerContainer: {
+        alignItems: "center"
+    },
     text: {
         color: "black",
         fontSize: 20,
@@ -36,6 +39,8 @@ const styles = StyleSheet.create({
     container: {
         height: 100,
         overflow: "hidden",
+        width: "93%",
+        borderRadius: 8,
         marginBottom: 12,
         flexDirection: "row",
     }
