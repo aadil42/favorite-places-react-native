@@ -6,20 +6,24 @@ import { Text, StyleSheet, View, Image } from "react-native";
 import OutlineBtn from "../components/OutlineBtn";
 const PlaceDetail = ({navigation, route}) => {
     
-    console.log(route);
+    // console.log(route);
     const title = route.params.title;
     const imageUri = route.params.imageUri;
     const address = route.params.address;
     const location = route.params.location;
+
+    // console.log(location, 'this is from parent');
 
     useEffect(() => {
         navigation.setOptions({
             title: title
         });
     }, []);
-    
+
     const pressHandler = () => {
-        navigation.navigate("Map");
+        navigation.navigate("Map", {
+            location: location
+        });
     }
 
 

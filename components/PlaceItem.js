@@ -11,8 +11,10 @@ const PlaceItem = ({title, imageUri, address, location}) => {
     // '../assets/tajMahal.jpeg'
     const navigation = useNavigation();
 
+    // console.log(location, 'from parent parent');
+
     const pressHandler = () => {
-        console.log('haha');
+        // console.log(location, 'from item');
         navigation.navigate("PlaceDetail", {
             title,
             imageUri,

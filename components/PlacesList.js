@@ -6,7 +6,6 @@ const PlacesList = ({list}) => {
 
     const renderer = (itemData) => {
         const item = itemData.item;
-        // console.log(item);
         return <PlaceItem title={item.title} 
                           imageUri={item.imageUri}
                           address={item.address}

@@ -60,9 +60,19 @@ export const fetchPlaces = () => {
             tsx.executeSql('SELECT * FROM places',
             [],
             (_,result) =>  {
-                // const places = [];
-                // console.log(result, 'from database');
-                resolve(result.rows._array);
+                const places = [];
+                for(let i = 0; i < result.rows._array.length; i++) {
+                    const place = result.rows._array[i];
+                    // console.log(place, 'database');
+                    places.push({
+                        title: place["title"],
+                        imageUri: place["imageUri"],
+                        address: place["address"],
+                        location: {lat: place["lat"], lng: place["lng"]},
+                        id: place["id"]
+                    });
+                }
+                resolve(places);
             },
             (_, error) => {
                 reject(error);
