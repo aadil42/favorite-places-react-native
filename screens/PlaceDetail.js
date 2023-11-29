@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { Text, StyleSheet, View, Image } from "react-native";
 
 // components
@@ -10,9 +12,17 @@ const PlaceDetail = ({navigation, route}) => {
     const address = route.params.address;
     const location = route.params.location;
 
+    useEffect(() => {
+        navigation.setOptions({
+            title: title
+        });
+    }, []);
+    
     const pressHandler = () => {
         navigation.navigate("Map");
     }
+
+
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Title: {title}</Text>
