@@ -3,11 +3,27 @@ import { View, Image, Text, Pressable, StyleSheet } from "react-native";
 // import constants
 import { Colors } from "../constants/Colors";
 
+// import navigation stuff
+import { useNavigation } from "@react-navigation/native";
+
+
 const PlaceItem = ({title, imageUri, address, location}) => {
     // '../assets/tajMahal.jpeg'
+    const navigation = useNavigation();
+
+    const pressHandler = () => {
+        console.log('haha');
+        navigation.navigate("PlaceDetail", {
+            title,
+            imageUri,
+            address,
+            location  
+        });
+    }
+
     return (
         <View style={styles.containerContainer}>
-            <Pressable style={styles.container}>
+            <Pressable style={styles.container} onPress={pressHandler}>
                 <Image style={styles.image} source={{uri: imageUri}}/>
                 <View style={styles.info}>
                     <Text style={styles.text}>{title}</Text>
