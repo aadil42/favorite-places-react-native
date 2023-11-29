@@ -7,6 +7,7 @@ import { Colors } from "../constants/Colors";
 
 // helper functions
 import { getAddress } from "../utils/location";
+import { insertPlace } from "../utils/database";
 
 // import classes
 import { Place } from "../models/Place";
@@ -33,7 +34,7 @@ const PlaceForm = () => {
     }
 
     const onSubmit = () => {
-        console.log('submits...');
+        // console.log('submits...');
         try {
             const gettingAddress = async () => {
                 const response = await getAddress(location.lat,  location.lng);
@@ -43,8 +44,13 @@ const PlaceForm = () => {
     
                 const address = `${county} ${state} ${country}`;
                 // console.log(address, "this is the address");
+                const place = new Place(title, imageUri, address, location);
+                
+                // insert the place in database.
+                await insertPlace(place);
+
                 navigation.navigate("AllPlaces", {
-                    data:  new Place(title, imageUri, address, location)
+                    data:  place
                 });
     
                 setLocation((preState) => {
